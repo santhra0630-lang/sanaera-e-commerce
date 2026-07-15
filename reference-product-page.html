@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rajwada Bridal Lehenga — SANAÉRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Marcellus+SC&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Backgrounds */
+    --ivory:#2D0C1C;        /* main background */
+    --bg-section:#441629;   /* section background */
+    --bg-card:#381222;      /* card background */
+    /* Text */
+    --warm-white:#FDF8F6;   /* white text */
+    --sand:#E8D8CF;         /* light beige text */
+    --charcoal:#E8D8CF;     /* default body text (kept light for the dark theme) */
+    --text-secondary:#BFA89B;
+    /* Buttons / accents */
+    --champagne:#DEB092;    /* primary */
+    --maroon:#C88F73;       /* hover */
+    --antique-gold:#DEB092; /* label accent, same tone as primary */
+    --matte-black:#2D0C1C;  /* darkest tone / button text, matches main bg */
+    /* Legacy aliases kept so existing gradients still read as "deep" and "mid" tones */
+    --emerald:#441629;
+    --emerald-deep:#381222;
+    --wine-mid:#5c1f35;
+    --rose-dust:#6b3a42;
+    --wine-deep:#1a0610;
+    --terracotta:#8a5a4a;
+    --line: rgba(222,176,146,0.25); --display:'Cormorant Garamond',serif; --label:'Marcellus SC',serif; --body:'Jost',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--ivory); color:var(--charcoal); font-family:var(--body); -webkit-font-smoothing:antialiased;}
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--champagne); color:var(--matte-black);}
+  .eyebrow{font-family:var(--label); letter-spacing:.26em; text-transform:uppercase; font-size:11px; color:var(--antique-gold);}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important; transition-duration:.01ms !important;}}
+
+  header{
+    display:flex; align-items:center; justify-content:space-between; padding:22px 48px;
+    background:rgba(45,12,28,0.9); backdrop-filter:blur(14px); border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:200;
+  }
+  .logo{font-family:var(--display); font-size:23px; letter-spacing:.3em;}
+  .breadcrumb{font-size:12px; color:var(--text-secondary); letter-spacing:.03em;}
+  .breadcrumb a:hover{color:var(--maroon);}
+  .nav-icons{display:flex; gap:20px; font-size:13px;}
+  .nav-icons span{cursor:pointer;}
+  .nav-icons span:hover{color:var(--champagne);}
+  @media(max-width:900px){header{padding:18px 22px; flex-wrap:wrap; gap:12px;}}
+
+  /* ---------- Product layout ---------- */
+  .product-wrap{display:grid; grid-template-columns:1fr 460px; gap:0;}
+  @media(max-width:1100px){.product-wrap{grid-template-columns:1fr;}}
+
+  /* Gallery */
+  .gallery-col{display:flex;}
+  .thumbs{display:flex; flex-direction:column; gap:2px; width:88px; padding:24px 0 24px 24px;}
+  .thumb{aspect-ratio:3/4; cursor:pointer; opacity:.55; transition:opacity .3s; position:relative; overflow:hidden;}
+  .thumb.active{opacity:1; box-shadow:0 0 0 1px var(--champagne) inset;}
+  .thumb:nth-child(1){background:linear-gradient(160deg,var(--maroon),var(--emerald-deep));}
+  .thumb:nth-child(2){background:linear-gradient(160deg,var(--emerald),var(--emerald-deep));}
+  .thumb:nth-child(3){background:linear-gradient(160deg,var(--champagne),var(--sand));}
+  .thumb:nth-child(4){background:linear-gradient(160deg,var(--wine-deep),var(--matte-black));}
+  .thumb:nth-child(5){background:linear-gradient(160deg,var(--rose-dust),var(--matte-black)); display:flex; align-items:center; justify-content:center; color:var(--warm-white); font-size:10px; letter-spacing:.1em; text-transform:uppercase;}
+
+  .main-view{flex:1; position:relative; aspect-ratio:4/5; margin:24px; overflow:hidden; background:linear-gradient(160deg,var(--maroon) 0%, var(--emerald-deep) 55%, var(--matte-black) 100%);}
+  .main-view::before{content:''; position:absolute; inset:0; opacity:.4; mix-blend-mode:overlay; background-image:repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 8px);}
+  .main-view svg{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:56%; opacity:.6;}
+  .view-toggle{position:absolute; bottom:20px; right:20px; display:flex; gap:8px; z-index:3;}
+  .view-toggle button{
+    font-family:var(--label); font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:9px 16px;
+    background:rgba(45,12,28,0.55); color:var(--warm-white); border:1px solid rgba(253,248,246,0.3); cursor:pointer; transition:background .3s;
+  }
+  .view-toggle button.active, .view-toggle button:hover{background:var(--champagne); color:var(--matte-black); border-color:var(--champagne);}
+  .zoom-hint{position:absolute; top:20px; left:20px; color:var(--sand); font-size:11px; letter-spacing:.08em; text-transform:uppercase; z-index:3;}
+
+  /* Info column */
+  .info-col{padding:48px 48px 48px 24px; border-left:1px solid var(--line);}
+  @media(max-width:1100px){.info-col{border-left:none; border-top:1px solid var(--line); padding:40px 24px;}}
+  .info-col .cat{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--antique-gold); margin-bottom:10px;}
+  .info-col h1{font-family:var(--display); font-weight:400; font-size:clamp(30px,3vw,42px); line-height:1.15; margin-bottom:14px;}
+  .price-row{display:flex; align-items:baseline; gap:14px; margin-bottom:22px;}
+  .price{font-family:var(--display); font-size:26px; color:var(--maroon);}
+  .price-old{font-size:14px; color:var(--text-secondary); text-decoration:line-through;}
+  .rating{font-size:12px; color:var(--text-secondary); margin-bottom:30px; display:flex; gap:8px; align-items:center;}
+  .stars{color:var(--champagne); letter-spacing:2px;}
+
+  .color-select{margin-bottom:26px;}
+  .label-sm{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-secondary); margin-bottom:10px;}
+  .swatch-row{display:flex; gap:10px;}
+  .sw{width:30px; height:30px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:border-color .3s;}
+  .sw.active{border-color:var(--champagne);}
+
+  .size-select{margin-bottom:14px;}
+  .size-row{display:flex; gap:10px; flex-wrap:wrap;}
+  .sz{padding:11px 18px; border:1px solid var(--line); font-size:12.5px; cursor:pointer; transition:all .3s; background:transparent;}
+  .sz.active, .sz:hover{background:var(--champagne); color:var(--matte-black); border-color:var(--champagne);}
+  .ai-size{font-size:12px; color:var(--emerald); margin:14px 0 30px; display:flex; align-items:center; gap:8px; cursor:pointer;}
+  .ai-size:hover{text-decoration:underline;}
+
+  .buy-row{display:flex; gap:14px; margin-bottom:20px;}
+  .btn{font-family:var(--body); font-size:12px; letter-spacing:.14em; text-transform:uppercase; padding:18px 26px; border:1px solid var(--champagne); background:var(--champagne); color:var(--matte-black); cursor:pointer; flex:1; text-align:center; transition:all .35s;}
+  .btn:hover{background:var(--maroon); border-color:var(--maroon); color:var(--matte-black);}
+  .btn.outline{background:transparent; color:var(--champagne); border-color:var(--champagne);}
+  .btn.outline:hover{background:var(--champagne); color:var(--matte-black);}
+  .btn.icon{flex:0 0 56px; padding:18px 0;}
+
+  .delivery-box{border:1px solid var(--line); padding:18px 20px; margin-bottom:30px; font-size:13px; line-height:1.8; color:var(--text-secondary);}
+  .delivery-box b{color:var(--warm-white);}
+
+  .accordion{border-top:1px solid var(--line);}
+  .acc-item{border-bottom:1px solid var(--line);}
+  .acc-head{display:flex; justify-content:space-between; align-items:center; padding:18px 2px; cursor:pointer; font-size:13px; letter-spacing:.05em; text-transform:uppercase;}
+  .acc-head .plus{font-size:16px; transition:transform .3s; color:var(--antique-gold);}
+  .acc-item.open .plus{transform:rotate(45deg);}
+  .acc-body{max-height:0; overflow:hidden; transition:max-height .4s ease;}
+  .acc-item.open .acc-body{max-height:400px;}
+  .acc-body p{font-size:13.5px; line-height:1.9; color:var(--text-secondary); padding:0 2px 20px;}
+
+  /* ---------- Craftsmanship band ---------- */
+  .craft-band{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; padding:120px 48px; background:var(--bg-section);}
+  @media(max-width:900px){.craft-band{grid-template-columns:1fr; gap:36px; padding:80px 24px;}}
+  .craft-visual{aspect-ratio:4/5; background:linear-gradient(150deg,var(--emerald-deep),var(--matte-black) 70%); position:relative; overflow:hidden;}
+  .craft-visual svg{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:65%; opacity:.55;}
+  .craft-text h2{font-family:var(--display); font-weight:400; font-size:clamp(28px,3.2vw,42px); line-height:1.2; margin-bottom:22px;}
+  .craft-text p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin-bottom:14px; max-width:48ch;}
+  .origin-row{display:flex; gap:40px; margin-top:32px; flex-wrap:wrap;}
+  .origin-row div span{display:block; font-family:var(--display); font-style:italic; font-size:19px; color:var(--maroon);}
+  .origin-row div small{font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-secondary);}
+
+  /* ---------- Complete the look ---------- */
+  section.pad{padding:120px 48px;}
+  @media(max-width:900px){section.pad{padding:80px 24px;}}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px; gap:30px; flex-wrap:wrap;}
+  .section-head h2{font-family:var(--display); font-weight:400; font-size:clamp(28px,3.4vw,44px);}
+  .section-head p{max-width:320px; font-size:13.5px; color:var(--text-secondary); line-height:1.8;}
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--line);}
+  @media(max-width:900px){.grid4{grid-template-columns:repeat(2,1fr);}}
+  .card{background:var(--warm-white);}
+  .card-media{aspect-ratio:3/4; position:relative; overflow:hidden;}
+  .card:nth-child(4n+1) .card-media{background:linear-gradient(160deg,var(--emerald),var(--emerald-deep));}
+  .card:nth-child(4n+2) .card-media{background:linear-gradient(160deg,var(--maroon),var(--emerald-deep));}
+  .card:nth-child(4n+3) .card-media{background:linear-gradient(160deg,var(--wine-deep),var(--matte-black));}
+  .card:nth-child(4n+4) .card-media{background:linear-gradient(160deg,var(--champagne),var(--sand));}
+  .card-info{padding:16px 18px 22px;}
+  .card-info .cat{font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--antique-gold); margin-bottom:5px;}
+  .card-info h3{font-family:var(--display); font-weight:400; font-size:18px;}
+  .card-info .price{margin-top:6px; font-size:12.5px; color:var(--text-secondary); font-family:var(--body);}
+
+  /* ---------- Reviews ---------- */
+  .reviews{background:var(--matte-black); color:var(--sand); padding:120px 48px;}
+  @media(max-width:900px){.reviews{padding:80px 24px;}}
+  .rev-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; flex-wrap:wrap; gap:24px;}
+  .rev-head h2{font-family:var(--display); font-weight:400; font-style:italic; font-size:clamp(28px,3.4vw,42px); color:var(--warm-white);}
+  .rev-score{text-align:right;}
+  .rev-score .big{font-family:var(--display); font-size:48px; color:var(--champagne);}
+  .rev-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:40px;}
+  @media(max-width:900px){.rev-grid{grid-template-columns:1fr;}}
+  .rev-card{border-top:1px solid rgba(232,216,207,0.15); padding-top:24px;}
+  .rev-card .stars{margin-bottom:14px; display:block;}
+  .rev-card p{font-size:14px; line-height:1.85; color:rgba(232,216,207,0.85); margin-bottom:16px;}
+  .rev-card .who{font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--sand); opacity:.7;}
+
+  footer{background:var(--matte-black); color:rgba(232,216,207,0.6); text-align:center; padding:40px 24px; font-size:11.5px; border-top:1px solid rgba(232,216,207,0.12);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">SANAÉRA</div>
+  <div class="breadcrumb"><a href="#">Home</a> / <a href="#">Lehengas</a> / <a href="#">Bridal</a> / Rajwada Bridal Lehenga</div>
+  <div class="nav-icons"><span>Search</span><span>Wishlist</span><span>Bag (0)</span></div>
+</header>
+
+<div class="product-wrap">
+  <!-- GALLERY -->
+  <div class="gallery-col">
+    <div class="thumbs" id="thumbs">
+      <div class="thumb active" data-i="0"></div>
+      <div class="thumb" data-i="1"></div>
+      <div class="thumb" data-i="2"></div>
+      <div class="thumb" data-i="3"></div>
+      <div class="thumb" data-i="4">360°</div>
+    </div>
+    <div class="main-view">
+      <div class="zoom-hint">Hover to zoom fabric detail</div>
+      <svg viewBox="0 0 300 300" fill="none">
+        <path d="M150 40 C200 55 230 100 215 150 C250 158 265 200 240 230 C215 260 150 255 150 220 C150 255 85 260 60 230 C35 200 50 158 85 150 C70 100 100 55 150 40Z" stroke="var(--warm-white)" stroke-width="0.8" opacity="0.7"/>
+        <circle cx="150" cy="150" r="20" stroke="var(--champagne)" stroke-width="0.8"/>
+      </svg>
+      <div class="view-toggle">
+        <button class="active" data-mode="photo">Photo</button>
+        <button data-mode="fabric">Fabric Zoom</button>
+        <button data-mode="catwalk">Catwalk</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-col">
+    <div class="cat">Lehenga · Bridal Collection</div>
+    <h1>Rajwada Bridal Lehenga</h1>
+    <div class="price-row">
+      <span class="price">₹1,18,000</span>
+      <span class="price-old">₹1,42,000</span>
+    </div>
+    <div class="rating"><span class="stars">★★★★★</span> 4.9 · 128 reviews · 340 sold this season</div>
+
+    <div class="color-select">
+      <div class="label-sm">Colour — Royal Maroon</div>
+      <div class="swatch-row">
+        <div class="sw active" style="background:#6B1B2E"></div>
+        <div class="sw" style="background:#1B4332"></div>
+        <div class="sw" style="background:var(--champagne)"></div>
+        <div class="sw" style="background:var(--matte-black)"></div>
+      </div>
+    </div>
+
+    <div class="size-select">
+      <div class="label-sm">Size</div>
+      <div class="size-row" id="sizeRow">
+        <div class="sz">XS</div><div class="sz active">S</div><div class="sz">M</div><div class="sz">L</div><div class="sz">XL</div><div class="sz">Custom</div>
+      </div>
+    </div>
+    <div class="ai-size">✦ Find your size with AI Stylist →</div>
+
+    <div class="buy-row">
+      <button class="btn">Add to Bag</button>
+      <button class="btn outline icon">♡</button>
+    </div>
+    <button class="btn outline" style="width:100%; margin-bottom:30px;">Book a Video Consultation</button>
+
+    <div class="delivery-box">
+      <b>Delivery estimate:</b> 6–9 business days (made to order) · <b>Express:</b> 3 days available at checkout.<br>
+      Complimentary global shipping on orders above ₹75,000.
+    </div>
+
+    <div class="accordion" id="accordion">
+      <div class="acc-item open">
+        <div class="acc-head">Craftsmanship Story <span class="plus">+</span></div>
+        <div class="acc-body"><p>Hand-embroidered by the karigars of Jaipur using traditional zardozi work — gold and silver thread laid over hand-dyed silk, a technique dating back to the Mughal courts. Each lehenga takes roughly 210 hours to complete.</p></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head">Fabric & Origin <span class="plus">+</span></div>
+        <div class="acc-body"><p>Pure mulberry silk base, sourced from Karnataka sericulture farms. Zari thread is 92.5% silver, gold-plated. Dupatta finished with hand-tied tassels.</p></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head">Size & Fit <span class="plus">+</span></div>
+        <div class="acc-body"><p>Runs true to size with a fitted blouse and flared skirt. Custom tailoring available at no extra cost — submit measurements after checkout.</p></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head">Care Instructions <span class="plus">+</span></div>
+        <div class="acc-body"><p>Dry clean only. Store folded in muslin cloth away from direct sunlight. Avoid contact with perfume or water on embroidered areas.</p></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head">Sustainability <span class="plus">+</span></div>
+        <div class="acc-body"><p>Made to order to avoid overproduction. Packaged in a reusable silk box with biodegradable filler. Artisans paid above fair-trade benchmark wages.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CRAFT BAND -->
+<section class="craft-band">
+  <div class="craft-visual">
+    <svg viewBox="0 0 300 300" fill="none">
+      <circle cx="150" cy="150" r="88" stroke="var(--champagne)" stroke-width="1"/>
+      <path d="M90 90 Q150 40 210 90 Q260 150 210 210 Q150 260 90 210 Q40 150 90 90Z" stroke="var(--champagne)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="craft-text">
+    <span class="eyebrow">Meet the Artisan</span>
+    <h2 style="margin-top:16px;">Zardozi by the karigars of Jaipur.</h2>
+    <p>This lehenga was embroidered by a collective of 14 karigars led by master craftsman Iqbal Mirza, whose family has practiced zardozi needlework for four generations in the old city of Jaipur.</p>
+    <p>Every motif is drawn by hand before a single thread is laid — no two lehengas in this edition are stitched in quite the same rhythm.</p>
+    <div class="origin-row">
+      <div><span>Jaipur</span><small>Region of Origin</small></div>
+      <div><span>210 hrs</span><small>Hand Embroidery Time</small></div>
+      <div><span>14</span><small>Karigars Involved</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- STYLING SUGGESTIONS -->
+<section class="pad">
+  <div class="section-head">
+    <h2>Complete the Look</h2>
+    <p>Curated jewelry and accessories to pair with the Rajwada Bridal Lehenga.</p>
+  </div>
+  <div class="grid4" id="lookGrid"></div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="rev-head">
+    <h2>What she wore it to say</h2>
+    <div class="rev-score"><span class="big">4.9</span><br><span style="font-size:12px; letter-spacing:.08em; text-transform:uppercase;">128 verified reviews</span></div>
+  </div>
+  <div class="rev-grid" id="revGrid"></div>
+</section>
+
+<footer>© 2026 SANAÉRA House of Craft — All rights reserved.</footer>
+
+<script>
+(function(){
+  // Thumbnail switch
+  document.querySelectorAll('.thumb').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+    });
+  });
+  // View toggle
+  document.querySelectorAll('.view-toggle button').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      document.querySelectorAll('.view-toggle button').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+  // Size select
+  document.querySelectorAll('.sz').forEach(s=>{
+    s.addEventListener('click', ()=>{
+      document.querySelectorAll('.sz').forEach(x=>x.classList.remove('active'));
+      s.classList.add('active');
+    });
+  });
+  // Color select
+  document.querySelectorAll('.sw').forEach(s=>{
+    s.addEventListener('click', ()=>{
+      document.querySelectorAll('.sw').forEach(x=>x.classList.remove('active'));
+      s.classList.add('active');
+    });
+  });
+  // Accordion
+  document.querySelectorAll('.acc-head').forEach(h=>{
+    h.addEventListener('click', ()=>{
+      h.parentElement.classList.toggle('open');
+    });
+  });
+
+  const looks = [
+    {cat:'Jewelry · Necklace', name:'Kundan Choker Set', price:'₹38,000'},
+    {cat:'Jewelry · Earrings', name:'Polki Jhumka', price:'₹22,500'},
+    {cat:'Accessory · Footwear', name:'Zari Mojari Heels', price:'₹14,200'},
+    {cat:'Accessory · Clutch', name:'Zardozi Potli Bag', price:'₹9,800'},
+  ];
+  document.getElementById('lookGrid').innerHTML = looks.map(p=>`
+    <div class="card">
+      <div class="card-media"></div>
+      <div class="card-info">
+        <div class="cat">${p.cat}</div>
+        <h3>${p.name}</h3>
+        <div class="price">${p.price}</div>
+      </div>
+    </div>`).join('');
+
+  const reviews = [
+    {name:'Ananya R.', text:'The embroidery is beyond anything I tried on for my wedding shopping — it photographed like a painting.'},
+    {name:'Priya M.', text:'Fit was tailored perfectly after the video consultation. Worth every rupee for a piece this considered.'},
+    {name:'Meera K.', text:'You can feel the hours in it. My mother said it reminded her of pieces from her own wedding trousseau.'}
+  ];
+  document.getElementById('revGrid').innerHTML = reviews.map(r=>`
+    <div class="rev-card">
+      <span class="stars">★★★★★</span>
+      <p>"${r.text}"</p>
+      <div class="who">${r.name} — Verified Buyer</div>
+    </div>`).join('');
+})();
+</script>
+</body>
+</html>

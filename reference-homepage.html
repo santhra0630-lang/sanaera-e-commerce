@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SANAÉRA — Where India's Heritage Meets Modern Luxury</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Marcellus+SC&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Backgrounds */
+    --ivory:#2D0C1C;        /* main background */
+    --bg-section:#441629;   /* section background */
+    --bg-card:#381222;      /* card background */
+    /* Text */
+    --warm-white:#FDF8F6;   /* white text */
+    --sand:#E8D8CF;         /* light beige text */
+    --charcoal:#E8D8CF;     /* default body text (kept light for the dark theme) */
+    --text-secondary:#BFA89B;
+    /* Buttons / accents */
+    --champagne:#DEB092;    /* primary */
+    --maroon:#C88F73;       /* hover */
+    --antique-gold:#DEB092; /* label accent, same tone as primary */
+    --matte-black:#2D0C1C;  /* darkest tone / button text, matches main bg */
+    /* Legacy aliases kept so existing gradients still read as "deep" and "mid" tones */
+    --emerald:#441629;
+    --emerald-deep:#381222;
+    --line: rgba(222,176,146,0.25);
+    /* Extra tonal variety, all mixed from the new wine palette, used only for decorative product-card gradients */
+    --wine-mid:#5c1f35;
+    --rose-dust:#6b3a42;
+    --wine-deep:#1a0610;
+    --terracotta:#8a5a4a;
+    --display: 'Cormorant Garamond', serif;
+    --label: 'Marcellus SC', serif;
+    --body: 'Jost', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    background:var(--ivory);
+    color:var(--charcoal);
+    font-family:var(--body);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  ::selection{background:var(--champagne); color:var(--matte-black);}
+
+  .eyebrow{
+    font-family:var(--label);
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--antique-gold);
+  }
+
+  /* ---------- Preloader ---------- */
+  #preloader{
+    position:fixed; inset:0; z-index:9999;
+    background:var(--matte-black);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity 1s ease, visibility 1s ease;
+  }
+  #preloader.hide{opacity:0; visibility:hidden;}
+  .pre-mark{font-family:var(--display); font-size:15px; color:var(--sand); letter-spacing:0.55em; text-transform:uppercase;}
+  .pre-line{
+    width:220px; height:1px; background:rgba(222,176,146,0.25); margin-top:22px; position:relative; overflow:hidden;
+  }
+  .pre-line::after{
+    content:''; position:absolute; left:0; top:0; height:100%; width:0%;
+    background:var(--champagne);
+    animation:preload 2.2s ease forwards;
+  }
+  @keyframes preload{to{width:100%;}}
+
+  /* ---------- Gold thread scroll indicator ---------- */
+  #thread-wrap{position:fixed; right:22px; top:0; height:100vh; width:24px; z-index:500; pointer-events:none; display:flex; align-items:center;}
+  #thread-svg{height:70vh;}
+  #thread-path{fill:none; stroke:var(--antique-gold); stroke-width:1.4; stroke-dasharray: 1 6; stroke-linecap:round;}
+  #thread-progress{fill:none; stroke:var(--champagne); stroke-width:1.6; stroke-linecap:round; stroke-dasharray: 2000; stroke-dashoffset:2000; transition:stroke-dashoffset 0.1s linear;}
+  @media(max-width:900px){#thread-wrap{display:none;}}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:900;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 48px;
+    transition:padding .5s ease, background .5s ease, backdrop-filter .5s ease, border-color .5s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    padding:16px 48px;
+    background:rgba(45,12,28,0.78);
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border-bottom:1px solid var(--line);
+  }
+  .logo{
+    font-family:var(--display); font-size:26px; letter-spacing:0.32em; font-weight:500;
+    color:var(--warm-white);
+  }
+  #hero .nav-shim{ color:var(--warm-white); }
+
+  nav.primary{display:flex; gap:36px; align-items:center;}
+  .nav-item{position:relative; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:400; padding:6px 0; cursor:pointer;}
+  .nav-item::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--champagne); transition:width .35s ease;}
+  .nav-item:hover::after{width:100%;}
+
+  .nav-icons{display:flex; gap:22px; align-items:center; font-size:13px;}
+  .nav-icons span{cursor:pointer; opacity:0.85; transition:opacity .3s;}
+  .nav-icons span:hover{opacity:1; color:var(--champagne);}
+
+  .mega{
+    position:fixed; top:0; left:0; right:0; padding:120px 48px 48px; 
+    background:rgba(56,18,34,0.98); backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--line);
+    display:grid; grid-template-columns:repeat(4,1fr); gap:40px;
+    transform:translateY(-110%); opacity:0; transition:transform .5s cubic-bezier(.22,1,.36,1), opacity .4s ease;
+    z-index:850;
+  }
+  .mega.open{transform:translateY(0); opacity:1;}
+  .mega h4{font-family:var(--label); font-size:12px; letter-spacing:0.2em; color:var(--antique-gold); margin-bottom:16px; text-transform:uppercase;}
+  .mega ul{list-style:none;}
+  .mega li{font-family:var(--display); font-size:19px; padding:7px 0; color:var(--charcoal); transition:color .3s, padding-left .3s;}
+  .mega li:hover{color:var(--maroon); padding-left:6px;}
+  .mega-visual{
+    aspect-ratio:3/4; border-radius:2px;
+    background:linear-gradient(155deg,var(--emerald) 0%, var(--emerald-deep) 60%, var(--matte-black) 100%);
+    position:relative; overflow:hidden;
+  }
+  .mega-visual::before{
+    content:''; position:absolute; inset:0;
+    background-image: radial-gradient(circle at 30% 20%, rgba(222,176,146,0.35), transparent 45%);
+  }
+  .mega-visual span{
+    position:absolute; bottom:16px; left:16px; color:var(--warm-white); font-family:var(--display); font-style:italic; font-size:18px;
+  }
+
+  /* ---------- Hero ---------- */
+  #hero{
+    position:relative; height:100vh; min-height:680px; overflow:hidden;
+    display:flex; align-items:flex-end;
+    background:
+      radial-gradient(ellipse at 75% 20%, rgba(222,176,146,0.20), transparent 55%),
+      radial-gradient(ellipse at 15% 85%, rgba(68,22,41,0.35), transparent 55%),
+      linear-gradient(160deg, var(--matte-black) 0%, var(--emerald-deep) 46%, var(--emerald) 78%, var(--wine-deep) 100%);
+  }
+  #hero .texture{
+    position:absolute; inset:0; opacity:0.5; mix-blend-mode:overlay;
+    background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 7px);
+  }
+  .hero-motif{
+    position:absolute; top:-8%; right:-6%; width:52vw; max-width:720px; opacity:0.5;
+    animation: float-slow 14s ease-in-out infinite;
+  }
+  @keyframes float-slow{0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-22px) rotate(1.4deg);}}
+  .particles{position:absolute; inset:0; pointer-events:none;}
+  .particle{
+    position:absolute; width:3px; height:3px; border-radius:50%;
+    background:var(--champagne); opacity:0.55; filter:blur(0.3px);
+    animation:drift linear infinite;
+  }
+  @keyframes drift{
+    0%{transform:translateY(0) translateX(0); opacity:0;}
+    10%{opacity:.7;}
+    90%{opacity:.5;}
+    100%{transform:translateY(-100vh) translateX(30px); opacity:0;}
+  }
+
+  .hero-inner{
+    position:relative; z-index:5; padding:0 48px 96px; width:100%;
+    display:flex; justify-content:space-between; align-items:flex-end; gap:40px;
+  }
+  .hero-copy .eyebrow{color:var(--champagne); margin-bottom:22px; display:block;}
+  .hero-copy h1{
+    font-family:var(--display); font-weight:400; color:var(--warm-white);
+    font-size:clamp(40px, 6.2vw, 96px); line-height:1.04; letter-spacing:0.005em;
+    max-width:15ch;
+  }
+  .hero-copy h1 em{font-style:italic; color:var(--champagne); font-weight:400;}
+  .hero-cta{display:flex; gap:18px; margin-top:40px;}
+  .btn{
+    font-family:var(--body); font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    padding:16px 34px; border:1px solid var(--champagne); cursor:pointer; background:transparent; color:var(--warm-white);
+    position:relative; overflow:hidden; transition:color .4s ease;
+  }
+  .btn::before{content:''; position:absolute; inset:0; background:var(--champagne); transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.22,1,.36,1); z-index:-1;}
+  .btn:hover{color:var(--matte-black);}
+  .btn:hover::before{transform:scaleX(1);}
+  .btn.ghost{border-color:rgba(253,248,246,0.4);}
+  .btn.ghost:hover{color:var(--matte-black);}
+  .btn.ghost::before{background:var(--maroon);}
+
+  .hero-side{text-align:right; color:var(--sand); font-size:13px; line-height:1.9; max-width:220px;}
+  .hero-side .num{font-family:var(--display); font-size:15px; color:var(--champagne); letter-spacing:.08em;}
+
+  .scroll-cue{
+    position:absolute; bottom:28px; left:48px; z-index:5; display:flex; align-items:center; gap:12px; color:var(--sand); font-size:11px; letter-spacing:0.2em; text-transform:uppercase;
+  }
+  .scroll-line{width:1px; height:38px; background:rgba(232,216,207,0.35); position:relative; overflow:hidden;}
+  .scroll-line::after{content:''; position:absolute; top:0; left:0; width:100%; height:12px; background:var(--champagne); animation:scrolldown 2s ease-in-out infinite;}
+  @keyframes scrolldown{0%{top:-20%;} 100%{top:110%;}}
+
+  /* ---------- Marquee ---------- */
+  .marquee-wrap{
+    background:var(--matte-black); color:var(--sand); padding:20px 0; overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .marquee{display:flex; white-space:nowrap; animation:marquee 34s linear infinite;}
+  .marquee span{font-family:var(--display); font-style:italic; font-size:21px; padding:0 34px; opacity:0.85;}
+  .marquee span::after{content:'—'; padding-left:34px; color:var(--antique-gold); font-style:normal;}
+  @keyframes marquee{0%{transform:translateX(0);} 100%{transform:translateX(-50%);}}
+
+  /* ---------- Section shared ---------- */
+  section{padding:130px 48px; position:relative;}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:64px; gap:40px; flex-wrap:wrap;}
+  .section-head h2{font-family:var(--display); font-weight:400; font-size:clamp(32px,4vw,56px); line-height:1.08;}
+  .section-head p{max-width:340px; font-size:14px; line-height:1.8; color:var(--text-secondary);}
+  .reveal{opacity:0; transform:translateY(36px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- Product grid ---------- */
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--line);}
+  .grid.three{grid-template-columns:repeat(3,1fr);}
+  @media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){.grid, .grid.three{grid-template-columns:1fr;}}
+
+  .card{background:var(--bg-card); position:relative; overflow:hidden; cursor:pointer;}
+  .card-media{
+    aspect-ratio:3/4; position:relative; overflow:hidden;
+    background:linear-gradient(160deg, var(--bg-section), var(--bg-card) 55%, var(--bg-section) 100%);
+  }
+  .card:nth-child(4n+1) .card-media{background:linear-gradient(160deg,var(--emerald),var(--emerald-deep));}
+  .card:nth-child(4n+2) .card-media{background:linear-gradient(160deg,var(--maroon),var(--emerald-deep));}
+  .card:nth-child(4n+3) .card-media{background:linear-gradient(160deg,var(--wine-deep),var(--matte-black));}
+  .card:nth-child(4n+4) .card-media{background:linear-gradient(160deg,var(--champagne),var(--sand));}
+  .card-media::before{
+    content:''; position:absolute; inset:0; opacity:.5; mix-blend-mode:overlay;
+    background-image: repeating-linear-gradient(70deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 9px);
+  }
+  .card-media img.motif{position:absolute; width:60%; opacity:.5; top:50%; left:50%; transform:translate(-50%,-50%) scale(1); transition:transform .8s cubic-bezier(.16,1,.3,1);}
+  .card:hover .card-media img.motif{transform:translate(-50%,-50%) scale(1.08);}
+  .card-tag{position:absolute; top:16px; left:16px; font-family:var(--label); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--warm-white); background:rgba(0,0,0,0.28); padding:6px 10px;}
+  .card-quick{
+    position:absolute; bottom:0; left:0; right:0; padding:14px; text-align:center;
+    background:rgba(45,12,28,0.72); color:var(--warm-white); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    transform:translateY(100%); transition:transform .45s cubic-bezier(.22,1,.36,1);
+  }
+  .card:hover .card-quick{transform:translateY(0);}
+  .card-info{padding:20px 22px 26px;}
+  .card-info .cat{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--antique-gold); margin-bottom:6px;}
+  .card-info h3{font-family:var(--display); font-weight:400; font-size:21px;}
+  .card-info .price{margin-top:8px; font-size:13px; color:var(--text-secondary);}
+  .swatches{display:flex; gap:6px; margin-top:12px;}
+  .swatch{width:13px; height:13px; border-radius:50%; border:1px solid rgba(0,0,0,0.15); cursor:pointer;}
+
+  /* ---------- Occasion / State scroller ---------- */
+  .hscroll{display:flex; gap:2px; overflow-x:auto; padding-bottom:12px; scrollbar-width:none; background:var(--line);}
+  .hscroll::-webkit-scrollbar{display:none;}
+  .hcard{
+    min-width:280px; aspect-ratio:4/5; background:var(--bg-card); position:relative; flex-shrink:0; overflow:hidden;
+    display:flex; align-items:flex-end; padding:24px;
+  }
+  .hcard::before{content:''; position:absolute; inset:0;}
+  .hcard h3{position:relative; z-index:2; font-family:var(--display); font-style:italic; font-size:26px; color:var(--warm-white);}
+  .hcard .eyebrow{position:relative; z-index:2; color:var(--sand); margin-bottom:8px; display:block;}
+  .hcard:nth-child(1)::before{background:linear-gradient(200deg, var(--maroon), var(--emerald-deep));}
+  .hcard:nth-child(2)::before{background:linear-gradient(200deg, var(--emerald), var(--emerald-deep));}
+  .hcard:nth-child(3)::before{background:linear-gradient(200deg, var(--wine-mid), var(--matte-black));}
+  .hcard:nth-child(4)::before{background:linear-gradient(200deg, var(--rose-dust), var(--matte-black));}
+  .hcard:nth-child(5)::before{background:linear-gradient(200deg, var(--champagne), var(--terracotta));}
+  .hcard:nth-child(6)::before{background:linear-gradient(200deg, var(--wine-deep), var(--matte-black));}
+
+  /* ---------- Artisan split ---------- */
+  .artisan{
+    display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:130px 48px;
+    background:var(--bg-section);
+  }
+  @media(max-width:900px){.artisan{grid-template-columns:1fr; gap:44px;}}
+  .artisan-visual{
+    aspect-ratio:4/5; position:relative; overflow:hidden;
+    background:linear-gradient(150deg, var(--emerald-deep), var(--matte-black) 70%);
+  }
+  .artisan-visual svg{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:70%; opacity:.55;}
+  .artisan-text .eyebrow{margin-bottom:20px; display:block;}
+  .artisan-text h2{font-family:var(--display); font-weight:400; font-size:clamp(30px,3.6vw,46px); line-height:1.15; margin-bottom:26px;}
+  .artisan-text p{font-size:15px; line-height:1.9; color:var(--text-secondary); max-width:46ch; margin-bottom:16px;}
+  .artisan-text .quote{font-family:var(--display); font-style:italic; font-size:20px; color:var(--maroon); border-left:2px solid var(--maroon); padding-left:20px; margin:26px 0;}
+  .artisan-stat{display:flex; gap:48px; margin-top:36px;}
+  .artisan-stat div span{display:block; font-family:var(--display); font-size:32px; color:var(--champagne);}
+  .artisan-stat div small{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-secondary);}
+
+  /* ---------- Sustainability band ---------- */
+  .band{
+    background:var(--emerald-deep); color:var(--warm-white); text-align:center; padding:120px 48px;
+    position:relative; overflow:hidden;
+  }
+  .band::before{content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 0%, rgba(222,176,146,0.16), transparent 60%);}
+  .band .eyebrow{color:var(--champagne); margin-bottom:24px;}
+  .band h2{font-family:var(--display); font-weight:400; font-size:clamp(30px,4.4vw,58px); line-height:1.2; max-width:18ch; margin:0 auto 30px;}
+  .band p{max-width:60ch; margin:0 auto 40px; font-size:15px; line-height:1.9; color:var(--sand);}
+  .band-stats{display:flex; justify-content:center; gap:64px; flex-wrap:wrap; margin-top:56px; position:relative;}
+  .band-stats div span{font-family:var(--display); font-size:44px; color:var(--champagne); display:block;}
+  .band-stats div small{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--sand);}
+
+  /* ---------- Gallery ---------- */
+  .gallery{display:grid; grid-template-columns:repeat(6,1fr); gap:2px; background:var(--line);}
+  .gallery .g{aspect-ratio:1/1; position:relative; overflow:hidden;}
+  .gallery .g:nth-child(6n+1){background:linear-gradient(160deg,var(--emerald),var(--emerald-deep));}
+  .gallery .g:nth-child(6n+2){background:linear-gradient(160deg,var(--maroon),var(--emerald-deep));}
+  .gallery .g:nth-child(6n+3){background:linear-gradient(160deg,var(--champagne),var(--sand));}
+  .gallery .g:nth-child(6n+4){background:linear-gradient(160deg,var(--wine-deep),var(--matte-black));}
+  .gallery .g:nth-child(6n+5){background:linear-gradient(160deg,var(--wine-mid),var(--matte-black));}
+  .gallery .g:nth-child(6n+6){background:linear-gradient(160deg,var(--rose-dust),var(--matte-black));}
+  .gallery .g::after{content:'♡ 248'; position:absolute; bottom:12px; left:12px; color:var(--warm-white); font-size:11px; letter-spacing:.1em; opacity:0; transition:opacity .35s;}
+  .gallery .g:hover::after{opacity:1;}
+  @media(max-width:900px){.gallery{grid-template-columns:repeat(3,1fr);}}
+
+  /* ---------- Newsletter ---------- */
+  .newsletter{
+    padding:120px 48px; text-align:center; background:var(--ivory);
+  }
+  .newsletter h2{font-family:var(--display); font-weight:400; font-style:italic; font-size:clamp(30px,4vw,50px); margin-bottom:20px;}
+  .newsletter p{color:var(--text-secondary); font-size:14px; margin-bottom:40px;}
+  .nform{display:flex; max-width:480px; margin:0 auto; border-bottom:1px solid var(--champagne); padding-bottom:12px;}
+  .nform input{flex:1; border:none; background:transparent; font-family:var(--body); font-size:14px; outline:none; letter-spacing:.02em; color:var(--warm-white);}
+  .nform input::placeholder{color:var(--text-secondary);}
+  .nform button{background:none; border:none; font-family:var(--label); font-size:11px; letter-spacing:.16em; text-transform:uppercase; cursor:pointer; color:var(--maroon);}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--matte-black); color:var(--sand); padding:100px 48px 30px;}
+  .foot-grid{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr 1fr; gap:40px; padding-bottom:70px; border-bottom:1px solid rgba(232,216,207,0.14);}
+  @media(max-width:900px){.foot-grid{grid-template-columns:1fr 1fr; gap:36px;}}
+  .foot-grid .logo{color:var(--warm-white); margin-bottom:18px; display:block;}
+  .foot-grid p.about{font-size:13px; line-height:1.9; color:rgba(232,216,207,0.75); max-width:32ch;}
+  .foot-grid h4{font-family:var(--label); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--champagne); margin-bottom:20px;}
+  .foot-grid ul{list-style:none;}
+  .foot-grid li{font-size:13.5px; padding:7px 0; color:rgba(232,216,207,0.75); transition:color .3s, padding-left .3s; cursor:pointer;}
+  .foot-grid li:hover{color:var(--warm-white); padding-left:4px;}
+  .foot-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:28px; font-size:11.5px; color:rgba(232,216,207,0.5); flex-wrap:wrap; gap:16px;}
+  .foot-bottom .pay{display:flex; gap:14px; font-size:11px; letter-spacing:.05em;}
+  .foot-social{display:flex; gap:18px;}
+  .foot-social span{cursor:pointer; color:rgba(232,216,207,0.7); font-size:12px; letter-spacing:.08em; text-transform:uppercase;}
+  .foot-social span:hover{color:var(--champagne);}
+
+  /* mobile nav toggle */
+  .burger{display:none; flex-direction:column; gap:5px; cursor:pointer;}
+  .burger span{width:22px; height:1px; background:currentColor;}
+  @media(max-width:900px){
+    nav.primary{display:none;}
+    .burger{display:flex;}
+    header{padding:20px 24px;}
+    section, .artisan, .band, .newsletter{padding-left:24px; padding-right:24px;}
+    .hero-inner{padding:0 24px 70px; flex-direction:column; align-items:flex-start; gap:24px;}
+    .hero-side{text-align:left;}
+    .mega{grid-template-columns:1fr 1fr; padding:110px 24px 30px;}
+    footer{padding:80px 24px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div style="text-align:center;">
+    <div class="pre-mark">SANAÉRA</div>
+    <div class="pre-line"></div>
+  </div>
+</div>
+
+<div id="thread-wrap">
+  <svg id="thread-svg" viewBox="0 0 24 1000" preserveAspectRatio="none">
+    <path id="thread-path" d="M12,0 C 2,60 22,120 12,180 C 2,240 22,300 12,360 C 2,420 22,480 12,540 C 2,600 22,660 12,720 C 2,780 22,840 12,900 C 2,940 22,970 12,1000"/>
+    <path id="thread-progress" d="M12,0 C 2,60 22,120 12,180 C 2,240 22,300 12,360 C 2,420 22,480 12,540 C 2,600 22,660 12,720 C 2,780 22,840 12,900 C 2,940 22,970 12,1000"/>
+  </svg>
+</div>
+
+<header id="siteHeader">
+  <div class="logo nav-shim">SANAÉRA</div>
+  <nav class="primary nav-shim">
+    <a href="new-arrivals.html" class="nav-item" data-mega="new">New Arrivals</a>
+    <a href="collections.html" class="nav-item" data-mega="collections">Collections</a>
+    <a href="heritage.html" class="nav-item" data-mega="heritage">Heritage</a>
+    <a href="jewelry.html" class="nav-item">Jewelry</a>
+    <a href="artisan-stories.html" class="nav-item">Artisan Stories</a>
+  </nav>
+  <div class="nav-icons nav-shim">
+    <span>Search</span>
+    <span>Wishlist</span>
+    <span>Bag (0)</span>
+    <span>Profile</span>
+  </div>
+  <div class="burger nav-shim"><span></span><span></span><span></span></div>
+</header>
+
+<div class="mega" id="mega-new">
+  <div><h4>Just In</h4><ul><li><a href="new-arrivals.html">New Arrivals</a></li><li><a href="new-arrivals.html">This Week</a></li><li><a href="new-arrivals.html">Pre-Order</a></li><li><a href="collections.html">Limited Edition</a></li></ul></div>
+  <div><h4>Ready to Wear</h4><ul><li><a href="collections.html">Sarees</a></li><li><a href="collections.html">Lehengas</a></li><li><a href="collections.html">Suits</a></li><li><a href="collections.html">Dresses</a></li></ul></div>
+  <div><h4>Occasion</h4><ul><li><a href="collections.html">Bridal</a></li><li><a href="collections.html">Festive</a></li><li><a href="collections.html">Evening</a></li><li><a href="collections.html">Everyday Luxe</a></li></ul></div>
+  <div class="mega-visual"><span>The July Edit</span></div>
+</div>
+
+<div class="mega" id="mega-collections">
+  <div><h4>By Fabric</h4><ul><li><a href="collections.html">Kanjivaram Silk</a></li><li><a href="collections.html">Banarasi</a></li><li><a href="collections.html">Chikankari</a></li><li><a href="collections.html">Handloom Cotton</a></li></ul></div>
+  <div><h4>By State</h4><ul><li><a href="collections.html">Gujarat — Bandhani</a></li><li><a href="collections.html">Varanasi — Silk</a></li><li><a href="collections.html">Lucknow — Chikankari</a></li><li><a href="collections.html">Kashmir — Pashmina</a></li></ul></div>
+  <div><h4>Seasonal</h4><ul><li><a href="collections.html">Festive Collection</a></li><li><a href="collections.html">Wedding Collection</a></li><li><a href="collections.html">Resort '26</a></li><li><a href="collections.html">Best Sellers</a></li></ul></div>
+  <div class="mega-visual"><span>Shop by State</span></div>
+</div>
+
+<div class="mega" id="mega-heritage">
+  <div><h4>The House</h4><ul><li><a href="heritage.html">Our Story</a></li><li><a href="artisan-stories.html">Artisan Network</a></li><li><a href="heritage.html">Sustainability</a></li><li><a href="heritage.html">Craftsmanship</a></li></ul></div>
+  <div><h4>Journal</h4><ul><li>Fashion Journal</li><li>Celebrity Style</li><li><a href="artisan-stories.html">Behind the Loom</a></li><li>Press</li></ul></div>
+  <div><h4>Services</h4><ul><li>Bridal Appointments</li><li>Video Consultation</li><li>Live Shopping</li><li>Loyalty Circle</li></ul></div>
+  <div class="mega-visual"><span>Woven Since 1998</span></div>
+</div>
+
+<!-- HERO -->
+<section id="hero" style="padding:0;">
+  <div class="texture"></div>
+  <svg class="hero-motif" viewBox="0 0 400 400" fill="none">
+    <path d="M200 40 C 260 60 300 120 280 180 C 320 190 340 240 310 280 C 340 300 330 350 290 360 C 260 390 200 380 200 340 C 200 380 140 390 110 360 C 70 350 60 300 90 280 C 60 240 80 190 120 180 C 100 120 140 60 200 40 Z" stroke="var(--champagne)" stroke-width="1"/>
+    <circle cx="200" cy="210" r="26" stroke="var(--champagne)" stroke-width="1"/>
+    <path d="M200 236 Q 210 280 200 340" stroke="var(--champagne)" stroke-width="1"/>
+  </svg>
+  <div class="particles" id="particles"></div>
+  <div class="hero-inner">
+    <div class="hero-copy reveal in">
+      <span class="eyebrow">The Autumn Reverie — 2026</span>
+      <h1>Where India's <em>Heritage</em> Meets Modern Luxury.</h1>
+      <div class="hero-cta">
+        <button class="btn">Discover Collection</button>
+        <button class="btn ghost">Explore Heritage</button>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="num">01 / 06</span><br>
+      Hand-embroidered in Lucknow.<br>Woven in Varanasi.<br>Worn by the world.
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>Kanjivaram Silk</span><span>Zardozi</span><span>Bandhani</span><span>Chikankari</span><span>Ikat</span><span>Banarasi Brocade</span>
+    <span>Kanjivaram Silk</span><span>Zardozi</span><span>Bandhani</span><span>Chikankari</span><span>Ikat</span><span>Banarasi Brocade</span>
+  </div>
+</div>
+
+<!-- FEATURED COLLECTION -->
+<section>
+  <div class="section-head reveal">
+    <h2>The Featured<br>Collection</h2>
+    <p>Six silhouettes drawn from six regions — each piece carries the hand of the artisan who made it, and the story of the loom it came from.</p>
+  </div>
+  <div class="grid reveal" id="featuredGrid"></div>
+</section>
+
+<!-- SHOP BY STATE -->
+<section style="padding-top:0;">
+  <div class="section-head reveal">
+    <h2>Shop by<br>State of India</h2>
+    <p>Twenty-eight states, a thousand traditions. Begin your journey through India's textile geography.</p>
+  </div>
+  <div class="hscroll reveal" id="stateScroll"></div>
+</section>
+
+<!-- ARTISAN STORY -->
+<section class="artisan" style="padding:130px 48px;">
+  <div class="artisan-visual reveal">
+    <svg viewBox="0 0 300 300" fill="none">
+      <circle cx="150" cy="150" r="90" stroke="var(--champagne)" stroke-width="1"/>
+      <path d="M150 60 L150 240 M60 150 L240 150" stroke="var(--champagne)" stroke-width="0.6" opacity="0.5"/>
+      <path d="M90 90 Q150 40 210 90 Q260 150 210 210 Q150 260 90 210 Q40 150 90 90 Z" stroke="var(--champagne)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="artisan-text reveal">
+    <span class="eyebrow">Behind the Loom</span>
+    <h2>The hands that hold three hundred years of memory.</h2>
+    <p>In a small workshop outside Varanasi, master weaver Rajendra Prasad ties each silk thread by hand — a technique passed down five generations, unchanged since the Mughal courts first commissioned his family's looms.</p>
+    <div class="quote">"A saree is not stitched. It is remembered, thread by thread."</div>
+    <div class="artisan-stat">
+      <div><span>1,240</span><small>Artisan Families</small></div>
+      <div><span>18</span><small>Weaving Regions</small></div>
+      <div><span>96hrs</span><small>Avg. Craft Time</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section>
+  <div class="section-head reveal">
+    <h2>Best Sellers</h2>
+    <p>The pieces our house is known for — worn on runways, red carpets, and wedding mandaps alike.</p>
+  </div>
+  <div class="grid three reveal" id="bestGrid"></div>
+</section>
+
+<!-- SUSTAINABILITY BAND -->
+<section class="band">
+  <span class="eyebrow reveal">Our Commitment</span>
+  <h2 class="reveal">Luxury that gives back to the hands that made it.</h2>
+  <p class="reveal">Every SANAÉRA garment is traced to its loom of origin. We pay artisans fair-trade wages, use GOTS-certified natural dyes, and package every order in biodegradable, reusable silk boxes.</p>
+  <button class="btn reveal">Read Our Sustainability Report</button>
+  <div class="band-stats reveal">
+    <div><span>100%</span><small>Traceable Origin</small></div>
+    <div><span>Zero</span><small>Plastic Packaging</small></div>
+    <div><span>Fair</span><small>Artisan Wages</small></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="padding-bottom:90px;">
+  <div class="section-head reveal">
+    <h2>Worn by You</h2>
+    <p>Tag @sanaera.house to be featured in our customer gallery.</p>
+  </div>
+  <div class="gallery reveal" id="galleryGrid"></div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <span class="eyebrow reveal">The Inner Circle</span>
+  <h2 class="reveal">Join the loyalty circle.</h2>
+  <p class="reveal">Early access to limited editions, private trunk shows, and bridal appointments — reserved for members.</p>
+  <div class="nform reveal">
+    <input type="email" placeholder="Enter your email address">
+    <button>Subscribe →</button>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <span class="logo">SANAÉRA</span>
+      <p class="about">A luxury house rooted in Indian craftsmanship, dressing the modern world in heritage worth remembering.</p>
+    </div>
+    <div>
+      <h4>The House</h4>
+      <ul><li>Heritage Story</li><li>Our Artisans</li><li>Sustainability</li><li>Careers</li><li>Press</li></ul>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul><li>Bridal Appointments</li><li>Video Consultation</li><li>Live Shopping</li><li>Gift Cards</li></ul>
+    </div>
+    <div>
+      <h4>Customer Care</h4>
+      <ul><li>Contact Us</li><li>Global Shipping</li><li>Returns</li><li>Size Guide</li><li>FAQ</li></ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul><li>WhatsApp Shopping</li><li>Instagram</li><li>Newsletter</li><li>Store Locator</li></ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 SANAÉRA House of Craft. All rights reserved.</span>
+    <div class="foot-social">
+      <span>Instagram</span><span>Pinterest</span><span>WhatsApp</span>
+    </div>
+    <div class="pay">Visa · Mastercard · Amex · UPI · PayPal</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Preloader
+  window.addEventListener('load', () => {
+    setTimeout(()=> document.getElementById('preloader').classList.add('hide'), 1200);
+  });
+
+  // Header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+  }, {passive:true});
+
+  // Mega menu
+  const navItems = document.querySelectorAll('.nav-item[data-mega]');
+  const megas = { new: document.getElementById('mega-new'), collections: document.getElementById('mega-collections'), heritage: document.getElementById('mega-heritage') };
+  let currentMega = null;
+  navItems.forEach(item=>{
+    item.addEventListener('mouseenter', ()=>{
+      Object.values(megas).forEach(m=>m.classList.remove('open'));
+      const key = item.dataset.mega;
+      megas[key].classList.add('open');
+      currentMega = megas[key];
+    });
+  });
+  document.addEventListener('mousemove', (e)=>{
+    if(currentMega && currentMega.classList.contains('open')){
+      const r = currentMega.getBoundingClientRect();
+      const navR = document.querySelector('nav.primary').getBoundingClientRect();
+      if(e.clientY > r.bottom && !(e.clientY < navR.bottom + 10)){
+        currentMega.classList.remove('open');
+      }
+    }
+  });
+
+  // Particles
+  const pWrap = document.getElementById('particles');
+  for(let i=0;i<28;i++){
+    const p = document.createElement('div');
+    p.className='particle';
+    p.style.left = Math.random()*100+'%';
+    p.style.bottom = '-10px';
+    p.style.animationDuration = (10+Math.random()*14)+'s';
+    p.style.animationDelay = (Math.random()*10)+'s';
+    pWrap.appendChild(p);
+  }
+
+  // Thread scroll progress
+  const threadProgress = document.getElementById('thread-progress');
+  const len = threadProgress.getTotalLength();
+  threadProgress.style.strokeDasharray = len;
+  threadProgress.style.strokeDashoffset = len;
+  window.addEventListener('scroll', ()=>{
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = Math.min(window.scrollY/scrollable, 1);
+    threadProgress.style.strokeDashoffset = len - (len*pct);
+  }, {passive:true});
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Product data
+  const products = [
+    {tag:'New', cat:'Saree · Kanjivaram Silk', name:'Meenakari Zari Saree', price:'₹42,500'},
+    {tag:'Bestseller', cat:'Lehenga · Bridal', name:'Rajwada Bridal Lehenga', price:'₹1,18,000'},
+    {tag:'Limited', cat:'Suit · Chikankari', name:'Lucknowi Anarkali Suit', price:'₹28,900'},
+    {tag:'New', cat:'Saree · Banarasi', name:'Zardozi Brocade Saree', price:'₹56,000'},
+    {tag:'Festive', cat:'Dress · Handloom', name:'Ikat Cape Gown', price:'₹34,750'},
+    {tag:'Bestseller', cat:'Lehenga · Festive', name:'Bandhani Ghagra Set', price:'₹64,200'},
+    {tag:'New', cat:'Suit · Pashmina', name:'Kashmiri Embroidered Kurta', price:'₹31,000'},
+    {tag:'Limited', cat:'Saree · Kanjivaram', name:'Temple Border Silk Saree', price:'₹48,900'},
+  ];
+  function cardHTML(p){
+    return `<div class="card">
+      <div class="card-media">
+        <svg class="motif" viewBox="0 0 200 200" fill="none">
+          <path d="M100 20 C140 30 160 70 145 100 C170 105 180 140 160 160 C140 180 100 175 100 150 C100 175 60 180 40 160 C20 140 30 105 55 100 C40 70 60 30 100 20Z" stroke="var(--warm-white)" stroke-width="0.8" opacity="0.7"/>
+        </svg>
+        <span class="card-tag">${p.tag}</span>
+        <div class="card-quick">Quick View</div>
+      </div>
+      <div class="card-info">
+        <div class="cat">${p.cat}</div>
+        <h3>${p.name}</h3>
+        <div class="price">${p.price}</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#6B1B2E"></div>
+          <div class="swatch" style="background:#1B4332"></div>
+          <div class="swatch" style="background:var(--champagne)"></div>
+        </div>
+      </div>
+    </div>`;
+  }
+  document.getElementById('featuredGrid').innerHTML = products.slice(0,8).map(cardHTML).join('');
+  document.getElementById('bestGrid').innerHTML = products.slice(0,6).map(cardHTML).join('');
+
+  // States scroller
+  const states = ['Gujarat — Bandhani','Varanasi — Silk Brocade','Lucknow — Chikankari','Kashmir — Pashmina','Rajasthan — Bandhej','Tamil Nadu — Kanjivaram'];
+  document.getElementById('stateScroll').innerHTML = states.map(s=>{
+    const [name, craft] = s.split(' — ');
+    return `<div class="hcard"><div><span class="eyebrow">${craft}</span><h3>${name}</h3></div></div>`;
+  }).join('');
+
+  // Gallery
+  document.getElementById('galleryGrid').innerHTML = new Array(12).fill(0).map(()=>'<div class="g"></div>').join('');
+
+  // Mobile burger — simple toggle placeholder
+  document.querySelector('.burger').addEventListener('click', ()=>{
+    document.querySelector('nav.primary').style.display = document.querySelector('nav.primary').style.display === 'flex' ? 'none' : 'flex';
+    document.querySelector('nav.primary').style.cssText += 'position:fixed; top:70px; left:0; right:0; background:var(--bg-card); flex-direction:column; padding:20px 24px; z-index:800;';
+  });
+})();
+</script>
+</body>
+</html>
